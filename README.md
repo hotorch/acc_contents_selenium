@@ -40,6 +40,12 @@ pip install selenium
 #### 5. 경로 내에 sample_data.xlsx 파일에 본인 적요 내용을 채워넣습니다.   
 경로를 바꾸시려면 pd.read_xlsx 부분에서 수정하시면 됩니다.  
 **각 column의 설명은 다음과 같습니다.(sample_data.xlsx를 참고해주세요.)**  
+
+
+date | type | howmany | amount | etc
+---- | ---- | ---- | ---- | ----
+20200802 | 중식 | 2인 | 19000 | 
+20200803 | 석식 | 3인 | 27000 | 
   
 
 - date : 적요일을 뜻합니다.  

@@ -1,4 +1,4 @@
-﻿from selenium import webdriver
+from selenium import webdriver
 from time import sleep
 import pandas as pd
 import getpass
@@ -6,7 +6,7 @@ from tqdm.notebook import tqdm
 import warnings
 warnings.filterwarnings(action = 'ignore')
 
-ver = "# version 0.0.1"
+ver = "# version 0.0.2"
 print(f"그룹웨어 적요 채우기 Personal Version: {ver}")
 
 my_id = input('아이디를 입력해주세요 : ')
@@ -14,7 +14,12 @@ my_passwords = getpass.getpass('비밀번호를 입력해주세요 (masking되�
 
 options = webdriver.ChromeOptions()
 print('C:/에 chromedriver 폴더를 만드시고, 자신의 크롬 버전에 맞는 실행파일을 설치하세요.')
-driver = webdriver.Chrome('C:/chromedriver/chromedriver.exe', options = options)
+
+try:
+    driver = webdriver.Chrome('C:/chromedriver/chromedriver.exe', options = options)
+except:  #selenium.common.exceptions.SessionNotCreatedException as e:
+    print('chrome 버전을 반드시 확인해주세요')
+
 
 br_ver = driver.capabilities['browserVersion']
 dr_ver = driver.capabilities['chrome']['chromedriverVersion'].split(' ')[0]
@@ -24,7 +29,7 @@ print('사이트로 접속합니다.')
 driver.get('http://gw.agilesoda.ai/gw/uat/uia/egovLoginUsr.do')
 
 print('경로에 데이터가 있는지 확인해주세요.')
-acc_data = pd.read_excel('./sample_data.xlsx', 
+acc_data = pd.read_excel('./sample_data_12.xlsx', 
                         sheet_name = 'Sheet1',
                         dtype = {'howmany':str,
                                 'etc':str})
@@ -59,8 +64,9 @@ for i in tqdm(range(len(acc_data))):
     sleep(1)
     driver.find_element_by_xpath('//*[@id="btnExpendListAdd"]').click()
 
-    sleep(1)
+    sleep(3)
     # 표준적요 찾기
+    #driver.switch_to_window(driver.window_handles[-1])
     driver.find_element_by_xpath('//*[@id="btnListSummarySearch"]').click()
     driver.switch_to_window(driver.window_handles[-1])
     search_box_words = driver.find_element_by_xpath('//*[@id="cmmTxtSearchStr"]')
@@ -69,7 +75,7 @@ for i in tqdm(range(len(acc_data))):
     driver.find_element_by_xpath('//*[@id="btnSearch"]').click()
 
     # 제일 위에 있는 표준적요 코드
-    sleep(2) # 안정성을 위해 2초로 설정하였습니다.
+    sleep(1) # 안정성을 위해 2초로 설정하였습니다.
     driver.switch_to_window(driver.window_handles[-1])
     driver.find_element_by_xpath('//*[@id="tbl_codePopTbl"]/tbody/tr/td[2]').click()
     # 확인버튼

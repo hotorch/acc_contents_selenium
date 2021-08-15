@@ -28,7 +28,7 @@ print('사이트로 접속합니다.')
 driver.get('http://gw.agilesoda.ai/gw/uat/uia/egovLoginUsr.do')
 
 print('경로에 데이터가 있는지 확인해주세요.')
-acc_data = pd.read_excel('./sample_data_06.xlsx', 
+acc_data = pd.read_excel('./sample_data.xlsx', 
                         sheet_name = 'Sheet1',
                         dtype = {'howmany':str,
                                 'etc':str,

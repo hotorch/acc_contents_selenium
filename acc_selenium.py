@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 from time import sleep
 import pandas as pd
 import getpass
@@ -6,7 +7,7 @@ from tqdm.notebook import tqdm
 import warnings
 warnings.filterwarnings(action = 'ignore')
 
-ver = "# version 0.0.4"
+ver = "# version 0.0.5"
 print(f"그룹웨어 적요 채우기 Personal Version: {ver}")
 
 my_id = input('아이디를 입력해주세요 : ')
@@ -51,7 +52,7 @@ print('아래 하단 결재양식 > 톱니바퀴 > 휴가신청서와 지출결�
 
 driver.switch_to_window(driver.window_handles[0]) # main page
 
-finance_templete = driver.find_element_by_xpath('//*[@id="26"]/a').click() # 톱니바퀴에서 설정해주어야합니다.(index문제)
+finance_templete = driver.find_element_by_xpath('//*[@id="26"]/a').send_keys(Keys.ENTER) # 톱니바퀴에서 설정해주어야합니다.(index문제)
 driver.switch_to_window(driver.window_handles[-1])
 
 print('금월 적요 항목은 ', len(acc_data), '개 있습니다.')
@@ -115,4 +116,3 @@ for i in tqdm(range(len(acc_data))):
     confirm_btn = driver.find_element_by_xpath('//*[@id="btnListSave"]').click()
     sleep(0.5)
     driver.switch_to_window(driver.window_handles[-1])
-    

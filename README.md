@@ -22,9 +22,10 @@
 #### 2. https://chromedriver.chromium.org/downloads 에 접속하여 본인 chrome 버전과 os에 맞는 chromedrive.exe를 설치합니다.   
 C:/에 chromedriver 폴더를 새로 만들어 실행파일을 넣어둡니다.  
   
-#### 3. selenium을 설치합니다.  
+#### 3. selenium을 설치합니다. 
+최신 버전으로 설치하는 경우 특정 함수가 존재하지 않는 이슈가 있습니다. 
 ```sh
-pip install selenium
+pip install selenium==3.141.0
 ```
   
 ####  4. 그룹웨어 접속하여 메인 페이지 중간 ~ 아래 부근에 결재양식이 있습니다.   

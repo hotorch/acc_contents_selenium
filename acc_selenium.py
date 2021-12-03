@@ -1,5 +1,4 @@
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 from time import sleep
 import pandas as pd
 import getpass
@@ -29,7 +28,7 @@ print('사이트로 접속합니다.')
 driver.get('http://gw.agilesoda.ai/gw/uat/uia/egovLoginUsr.do')
 
 print('경로에 데이터가 있는지 확인해주세요.')
-acc_data = pd.read_excel('./sample_data.xlsx', 
+acc_data = pd.read_excel('./sample_data_11.xlsx', 
                         sheet_name = 'Sheet1',
                         dtype = {'howmany':str,
                                 'etc':str,
@@ -52,7 +51,7 @@ print('아래 하단 결재양식 > 톱니바퀴 > 휴가신청서와 지출결�
 
 driver.switch_to_window(driver.window_handles[0]) # main page
 
-finance_templete = driver.find_element_by_xpath('//*[@id="26"]/a').send_keys(Keys.ENTER) # 톱니바퀴에서 설정해주어야합니다.(index문제)
+finance_templete = driver.find_element_by_xpath('//*[@id="26"]/a').click() # 톱니바퀴에서 설정해주어야합니다.(index문제)
 driver.switch_to_window(driver.window_handles[-1])
 
 print('금월 적요 항목은 ', len(acc_data), '개 있습니다.')
@@ -85,7 +84,7 @@ for i in tqdm(range(len(acc_data))):
     
     # 적요 내용 읽고 삽입, string 연결
     acc_contents_box = driver.find_element_by_xpath('//*[@id="txtListNote"]')
-    acc_contents_box.send_keys(str(acc_data.loc[i,'type'] + ' ' + acc_data.loc[i,'howmany'] + ' ' + acc_data.loc[i,'etc']))
+    acc_contents_box.send_keys(str(acc_data.loc[i,'type'] + '( ' + acc_data.loc[i,'howmany'] + ') ' + acc_data.loc[i,'etc']))
 
     # 증빙일자 8자리 입력
     prove_date_combobox = driver.find_element_by_xpath('//*[@id="txtListAuthDate"]')
@@ -116,3 +115,4 @@ for i in tqdm(range(len(acc_data))):
     confirm_btn = driver.find_element_by_xpath('//*[@id="btnListSave"]').click()
     sleep(0.5)
     driver.switch_to_window(driver.window_handles[-1])
+    

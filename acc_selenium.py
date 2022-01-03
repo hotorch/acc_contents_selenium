@@ -6,7 +6,7 @@ from tqdm.notebook import tqdm
 import warnings
 warnings.filterwarnings(action = 'ignore')
 
-ver = "# version 0.0.5"
+ver = "# version 0.0.6"
 print(f"그룹웨어 적요 채우기 Personal Version: {ver}")
 
 my_id = input('아이디를 입력해주세요 : ')
@@ -28,7 +28,7 @@ print('사이트로 접속합니다.')
 driver.get('http://gw.agilesoda.ai/gw/uat/uia/egovLoginUsr.do')
 
 print('경로에 데이터가 있는지 확인해주세요.')
-acc_data = pd.read_excel('./sample_data_11.xlsx', 
+acc_data = pd.read_excel('./sample_data.xlsx', 
                         sheet_name = 'Sheet1',
                         dtype = {'howmany':str,
                                 'etc':str,
@@ -38,7 +38,7 @@ acc_data.fillna(" ", inplace = True)
 
 search_box_id = driver.find_element_by_xpath('//*[@id="userId"]')
 search_box_passwords = driver.find_element_by_xpath('//*[@id="userPw"]')
-login_btn = driver.find_element_by_xpath('//*[@id="login_b1_type"]/div[2]/div[2]/form/fieldset/div[2]/input')
+login_btn = driver.find_element_by_xpath('//*[@id="login_b1_type"]/div[2]/div[2]/form/fieldset/div[2]/div')
 
 print('로그인을 실시합니다')
 search_box_id.send_keys(my_id)
@@ -47,7 +47,7 @@ login_btn.click()
 
 print('---팝업창 유의---')
 print('아래 하단 결재양식 > 톱니바퀴 > 휴가신청서와 지출결의서(개인경비)를 추가해주세요.')
-# print('이 부분은 언젠가는 보완 하겠습니다.')
+
 
 driver.switch_to_window(driver.window_handles[0]) # main page
 

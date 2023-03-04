@@ -1,4 +1,6 @@
 from selenium import webdriver
+import chromedriver_autoinstaller
+import os
 from time import sleep
 import pandas as pd
 import getpass
@@ -6,8 +8,21 @@ from tqdm.notebook import tqdm
 import warnings
 warnings.filterwarnings(action = 'ignore')
 
-ver = "# version 0.0.6"
+ver = "# version 0.1"
 print(f"그룹웨어 적요 채우기 Personal Version: {ver}")
+
+
+# ADD chromedriver autoinstaller (ver 0.1)
+chrome_ver = chromedriver_autoinstaller.get_chrome_version().split('.')[0]
+print('chrome_ver : ', chrome_ver)
+driver_path = f'./{chrome_ver}/chromedriver.exe'
+if os.path.exists(driver_path):
+    print(f"chrom driver is installed: {driver_path}")
+else:
+    print(f"install the chrome driver(ver: {chrome_ver})")
+    print(f".py 이 있는 경로에 chromedriver.exe 파일을 설치합니다. (Folder Name : {chrome_ver})")
+    chromedriver_autoinstaller.install(True)
+
 
 my_id = input('아이디를 입력해주세요 : ')
 my_passwords = getpass.getpass('비밀번호를 입력해주세요 (masking되어 입력됩니다) : ')
@@ -16,7 +31,8 @@ options = webdriver.ChromeOptions()
 print('C:/에 chromedriver 폴더를 만드시고, 자신의 크롬 버전에 맞는 실행파일을 설치하세요.')
 
 try:
-    driver = webdriver.Chrome('C:/chromedriver/chromedriver.exe', options = options)
+    # driver = webdriver.Chrome('C:/chromedriver/chromedriver.exe', options = options)
+    driver = webdriver.Chrome(driver_path, options = options)
     br_ver = driver.capabilities['browserVersion']
     dr_ver = driver.capabilities['chrome']['chromedriverVersion'].split(' ')[0]
     print('-------------------chrome current ver -------------------')

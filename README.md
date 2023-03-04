@@ -16,19 +16,16 @@
 
 ## Setting  
 실행을 하기 위해서는 사전 작업이 필요합니다. 
-  
-#### 1. 본인 크롬에 접속 후 도움말 -> chrome 정보를 눌러 버전을 확인합니다.  
-  
-#### 2. https://chromedriver.chromium.org/downloads 에 접속하여 본인 chrome 버전과 os에 맞는 chromedrive.exe를 설치합니다.   
-C:/에 chromedriver 폴더를 새로 만들어 실행파일을 넣어둡니다.  
-  
-#### 3. selenium을 설치합니다. 
-최신 버전으로 설치하는 경우 특정 함수가 존재하지 않는 이슈가 있습니다. 
+
+#### 1. 아래 library들을 설치합니다. 
+이전 버전은 본인 chrome 버전과 일치하는 chromedrive.exe 를 설치하였으나, 자동으로 설치를 해주는 library를 활용합니다. 
+
 ```sh
-pip install selenium==3.141.0
+pip install selenium
+pip install chromedriver-autoinstaller
 ```
   
-####  4. 그룹웨어 접속하여 메인 페이지 중간 ~ 아래 부근에 결재양식이 있습니다.   
+#### 2. 그룹웨어 접속하여 메인 페이지 중간 ~ 아래 부근에 결재양식이 있습니다.   
 톱니바퀴 버튼을 클릭해서 **휴가신청서, 지출결의서(개인경비)**를 추가해주세요.  
 사진처럼 세팅을 하면 됩니다.  
 
@@ -38,7 +35,7 @@ pip install selenium==3.141.0
 
 
   
-#### 5. 경로 내에 sample_data.xlsx 파일에 본인 적요 내용을 채워넣습니다.   
+#### 3. 경로 내에 sample_data.xlsx 파일에 본인 적요 내용을 채워넣습니다.   
 경로를 바꾸시려면 pd.read_xlsx 부분에서 수정하시면 됩니다.  
 **각 column의 설명은 다음과 같습니다.(sample_data.xlsx를 참고해주세요.)**  
 
